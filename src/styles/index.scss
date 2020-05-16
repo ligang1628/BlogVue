@@ -4,16 +4,27 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 
+// body {
+//   height: 100%;
+//   -moz-osx-font-smoothing: grayscale;
+//   -webkit-font-smoothing: antialiased;
+//   text-rendering: optimizeLegibility;
+//   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+//   background-color: #e9eaed;
+//   line-height: 1.5;
+//   overflow-x: hidden;
+//   color: #333;
+// }
+
 body {
   height: 100%;
+  background-color: #e9eaed;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-  background-color: #e9eaed;
-  line-height: 1.5;
-  overflow-x: hidden;
   color: #333;
+  line-height: 1.5;
 }
 
 label {

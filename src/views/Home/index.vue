@@ -39,7 +39,14 @@
           />
         </div>
       </div>
-      <div class="rbox">广告</div>
+      <div class="rbox">
+        <div class="hot">
+          <p>热门文章</p>
+        </div>
+        <div class="hot">最近更新</div>
+        <div class="hot">分类目录</div>
+        <div class="hot">文章归档</div>
+      </div>
     </article>
   </div>
 </template>
@@ -61,8 +68,6 @@ export default {
 </script>
 
 <style scoped>
-/* .home {
-} */
 
 .home .newhome {
   width:1200px;
@@ -80,7 +85,7 @@ export default {
 
 .home .rbox {
   float:right;
-  width: 23.5%;
+  width: 22.5%;
   overflow: hidden;
 }
 
@@ -180,8 +185,13 @@ a.viewmore{
   display: none !important;
 }
 
-.rbox{
-  border:1px solid red;
+.rbox .hot{
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.rbox .hot p{
+  color:#636363;
 }
 
 </style>

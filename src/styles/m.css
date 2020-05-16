@@ -20,7 +20,7 @@ a.viewmore { position: static !important; margin-top: 20px; text-align: center }
 
 }
  @media only screen and (max-width: 768px) {
-
+  .nav-mobile { display:inline-block !important; }
 }
  @media only screen and (max-width: 480px) {
 
@@ -31,5 +31,6 @@ a.viewmore { position: static; margin-top: 20px; text-align: center }
 .blogtext { margin-top: 15px }
 
 .bloginfo { width: 100% }
-
+.nav-mobile { display:inline-block !important; }
+.copyBeian { width:100% !important;padding:15px 0 !important; }
 }

@@ -22,23 +22,22 @@
                   <router-link to="/">首页</router-link>
                 </el-menu-item>
                 <el-menu-item index="mood">
-                  <!-- 心情随笔 --><router-link to="mood">1</router-link>
+                  <!-- 心情随笔 --><router-link to="mood">心情随笔</router-link>
                 </el-menu-item>
                 <el-menu-item index="skill">
-                  <!-- 技术分析 --><router-link to="skill">2</router-link>
+                  <!-- 技术分析 --><router-link to="skill">技术分析</router-link>
                 </el-menu-item>
                 <el-menu-item index="message">
-                  <!-- BLOG留言 --><router-link to="message">2</router-link>
+                  <!-- BLOG留言 --><router-link to="message">BLOG留言</router-link>
                 </el-menu-item>
                 <el-menu-item index="profile">
-                  <!-- 关于我 --><router-link to="profile">5</router-link>
+                  <!-- 关于我 --><router-link to="profile">关于我</router-link>
                 </el-menu-item>
               </el-menu>
             </div>
           </div>
         </div>
         <div class="nav-mobile">
-          <!-- <i class="el-icon-menu" /> -->
           <el-menu
             :default-active="activeIndex"
             class="el-menu-demo"
@@ -49,21 +48,31 @@
           >
             <el-submenu index="menu">
               <template slot="title"><i class="el-icon-menu" /></template>
-              <el-menu-item index="/">
-                <router-link to="/">首页</router-link>
-              </el-menu-item>
-              <el-menu-item index="mood">
-                <!-- 心情随笔 --><router-link to="mood">1</router-link>
-              </el-menu-item>
-              <el-menu-item index="skill">
-                <!-- 技术分析 --><router-link to="skill">2</router-link>
-              </el-menu-item>
-              <el-menu-item index="message">
-                <!-- BLOG留言 --><router-link to="message">2</router-link>
-              </el-menu-item>
-              <el-menu-item index="profile">
-                <!-- 关于我 --><router-link to="profile">5</router-link>
-              </el-menu-item>
+              <router-link to="/">
+                <el-menu-item index="/">
+                  首页
+                </el-menu-item>
+              </router-link>
+              <router-link to="mood">
+                <el-menu-item index="mood">
+                  心情随笔
+                </el-menu-item>
+              </router-link>
+              <router-link to="skill">
+                <el-menu-item index="skill">
+                  技术分析
+                </el-menu-item>
+              </router-link>
+              <router-link to="message">
+                <el-menu-item index="message">
+                  BLOG留言
+                </el-menu-item>
+              </router-link>
+              <router-link to="profile">
+                <el-menu-item index="profile">
+                  关于我
+                </el-menu-item>
+              </router-link>
             </el-submenu>
           </el-menu>
         </div>
@@ -73,24 +82,68 @@
         <router-view />
       </div>
       <el-footer class="copyright">
-        版权
+        <div style="width:100%;margin:0 auto;padding:20px 0;" class="copyBeian">
+          <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030602004444">
+            <img src="../assets/images/beian.png" style="float:left;">粤公网安备 44030602004444号
+          </a>
+          <a href="https://www.beian.gov.cn" target="_blank">粤ICP备20030330号-1</a>
+        </div>
       </el-footer>
+      <el-tooltip placement="top" content="返回顶部">
+        <back-to-top :custom-style="BackTo" :visibility-height="300" :back-position="50" transition-name="fade" />
+      </el-tooltip>
+      <div :class="classObj" class="app-wrapper">
+        <div class="main-container">
+          <right-panel>
+            <settings />
+          </right-panel>
+        </div>
+      </div>
     </el-container>
   </div>
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop'
+import RightPanel from '@/components/RightPanel'
+import Settings from '@/components/Settings'
+import { mapState } from 'vuex'
 export default {
   name: 'Layout',
+  components: { BackToTop, RightPanel, Settings },
   data() {
     return {
-      activeIndex: '1'
+      activeIndex: '1',
+      BackTo: {
+        right: '50px',
+        bottom: '50px',
+        width: '40px',
+        height: '40px',
+        'border-radius': '4px',
+        'line-height': '45px', // 请保持与高度一致以垂直居中 Please keep consistent with height to center vertically
+        background: '#12b7de'// 按钮的背景颜色 The background color of the button
+      }
+    }
+  },
+  computed: {
+    ...mapState({
+      device: state => state.app.device,
+      showSettings: state => state.settings.showSettings
+    }),
+    classObj() {
+      return {
+        mobile: this.device === 'mobile'
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.container{
+  min-width: 411px;
+}
+
 .container .header-container {
   height: 60px;
   z-index: 100;
@@ -107,13 +160,13 @@ export default {
 .container .header-container-content {
   max-width: 1440px;
   margin: 0 auto;
+  overflow: hidden;
   transition: transform .3s cubic-bezier(.645,.045,.355,1),-webkit-transform .3s cubic-bezier(.645,.045,.355,1);
 }
 
-/* .container .header-container-content .logo {
-  position: relative;
-  top: -10px;
-} */
+.container .header-container-content .logo {
+  float: left;
+}
 
 .container .header-container-content .logo,.container .header-container-content .header-container-banner{
   display: inline-block;
@@ -123,7 +176,7 @@ export default {
   position: absolute;
   right: 20px;
   top: 0px;
-  display: inline-block;
+  display: none;
   font-size: 25px;
 }
 
@@ -138,17 +191,21 @@ export default {
 
 .container .container-content{
   margin: 0;
-  padding: 0;
+  padding-bottom: 40px;
 }
 
 .copyright{
-  /* position: absolute;
-  bottom: 0; */
   width: 100%;
-  text-align:center;
+  text-align:center !important;
   background-color: #000000;
-  color: #ffffff 0.9;
-  line-height: 60px;
-  height: 60px;
+  line-height: 20px;
+}
+
+.copyright a {
+  color:rgba(255,255,255,.95);
+  font-size: 12px;
+  margin-right: 10px;
+  display: inline-block;
+  text-decoration:none;
 }
 </style>

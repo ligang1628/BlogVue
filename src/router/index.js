@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import Index from '@/views/index'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -40,12 +41,67 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/',
-    children: [{
-      path: '/',
-      name: '首页',
-      component: () => import('@/views/Home/index'),
-      meta: { title: '首页', icon: 'dashboard' }
-    }]
+    children: [
+      {
+        path: '/',
+        name: '首页',
+        component: () => import('@/views/Home/index'),
+        meta: { title: '首页' }
+      },
+      {
+        path: 'mood',
+        name: '心情随笔',
+        redirect: '/mood/index',
+        component: Index,
+        meta: { title: '心情随笔' },
+        children: [
+          {
+            path: 'index',
+            name: '随笔列表',
+            component: () => import('@/views/mood/index'),
+            meta: { title: '随笔列表' }
+          },
+          {
+            path: 'detail/:id(\\d+)',
+            name: '查看随笔',
+            component: () => import('@/views/mood/detail'),
+            meta: { title: '查看随笔' }
+          }
+        ]
+      },
+      {
+        path: 'article',
+        name: '技术分析',
+        redirect: '/article/index',
+        component: Index,
+        meta: { title: '技术分析' },
+        children: [
+          {
+            path: 'index',
+            component: () => import('@/views/article/index'),
+            name: '文章列表',
+            mata: { title: '文章列表' }
+          },
+          {
+            path: 'detail/:id',
+            component: () => import('@/views/article/detail'),
+            name: '查看文章',
+            mata: { title: '查看文章' }
+          }
+        ]
+      },
+      {
+        path: 'message',
+        name: 'Blog留言',
+        component: () => import('@/views/message/index'),
+        meta: { title: 'Blog留言' }
+      },
+      {
+        path: 'about',
+        name: '关于我',
+        component: () => import('@/views/about/index'),
+        meta: { title: '关于我' }
+      }]
   },
   {
     path: '/404',

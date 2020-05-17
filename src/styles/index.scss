@@ -85,9 +85,21 @@ div:focus {
 
 // 头部导航间距
 .container .nav .el-menu-item {
-  padding: 0 40px;
+  // padding: 0 40px;
+  padding: 0;
+}
+
+.container .nav .el-menu-item a{
+  padding:0 40px;
+  display: block;
 }
 
 .container .nav .el-menu-item:hover,.container .nav .el-menu-item:focus {
   background-color: #ffffff !important;
+}
+
+// 去除编辑器工具栏
+
+.message .v-md-editor__toolbar{
+  display:none !important;
 }

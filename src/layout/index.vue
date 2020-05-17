@@ -19,19 +19,29 @@
                 active-text-color="#ffd04b"
               >
                 <el-menu-item index="/">
-                  <router-link to="/">首页</router-link>
+                  <router-link to="/">
+                    首页
+                  </router-link>
                 </el-menu-item>
-                <el-menu-item index="mood">
-                  <!-- 心情随笔 --><router-link to="mood">心情随笔</router-link>
+                <el-menu-item index="/mood">
+                  <router-link to="/mood">
+                    心情随笔
+                  </router-link>
                 </el-menu-item>
-                <el-menu-item index="skill">
-                  <!-- 技术分析 --><router-link to="skill">技术分析</router-link>
+                <el-menu-item index="/article">
+                  <router-link to="/article">
+                    技术分析
+                  </router-link>
                 </el-menu-item>
-                <el-menu-item index="message">
-                  <!-- BLOG留言 --><router-link to="message">BLOG留言</router-link>
+                <el-menu-item index="/message">
+                  <router-link to="/message">
+                    BLOG留言
+                  </router-link>
                 </el-menu-item>
-                <el-menu-item index="profile">
-                  <!-- 关于我 --><router-link to="profile">关于我</router-link>
+                <el-menu-item index="/about">
+                  <router-link to="/about">
+                    关于我
+                  </router-link>
                 </el-menu-item>
               </el-menu>
             </div>
@@ -53,23 +63,23 @@
                   首页
                 </el-menu-item>
               </router-link>
-              <router-link to="mood">
-                <el-menu-item index="mood">
+              <router-link to="/mood">
+                <el-menu-item index="/mood">
                   心情随笔
                 </el-menu-item>
               </router-link>
-              <router-link to="skill">
-                <el-menu-item index="skill">
+              <router-link to="/article">
+                <el-menu-item index="/article">
                   技术分析
                 </el-menu-item>
               </router-link>
-              <router-link to="message">
-                <el-menu-item index="message">
+              <router-link to="/message">
+                <el-menu-item index="/message">
                   BLOG留言
                 </el-menu-item>
               </router-link>
-              <router-link to="profile">
-                <el-menu-item index="profile">
+              <router-link to="/about">
+                <el-menu-item index="/about">
                   关于我
                 </el-menu-item>
               </router-link>

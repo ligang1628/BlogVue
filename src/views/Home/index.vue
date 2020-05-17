@@ -8,34 +8,34 @@
           </p>
         </div>
         <div class="article-list">
-          <ul>
-            <li>
+          <ul v-if="articleList">
+            <li v-for="(item,index) in articleList" :key="index">
               <h3 class="blogtitle">
-                <a href="javascript:void(0)">标题</a>
+                <a href="javascript:void(0)">{{ item.Title }}</a>
               </h3>
               <p class="blogtext">
-                啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊阿啊啊啊啊啊啊啊啊啊啊啊
+                {{ item.Content }}
               </p>
               <p class="bloginfo">
-                <el-avatar :size="50" src="" style="vertical-align:middle;" />
-                <!-- <i class="avatar"></i> -->
-                <span>技术博文</span>
-                <span>2020/05/21</span>
-                <span>【<a href="javascript:void(0)">作者</a>】</span>
+                <el-avatar :size="40" :src="item.avatar" style="vertical-align:middle;" />
+                <span>{{ item.CName }}</span>
+                <span>{{ item.CreateTime }}</span>
+                <span>【<a href="javascript:void(0)">{{ item.UserName }}</a>】</span>
               </p>
-              <a href="javascrpt:void(0)" class="viewmore">更多</a>
+              <a :href="'/article/detail/'+item.Id" class="viewmore">更多</a>
             </li>
           </ul>
         </div>
         <div class="page">
           <el-pagination
+            :current-page="1"
             prev-text="上一页"
             next-text="下一页"
             :hide-on-single-page="true"
-            :page-size="10"
-            :pager-count="5"
+            :page-size="pageParams.limit"
+            :total="pageParams.total"
             layout="prev, pager, next"
-            :total="100"
+            @current-change="CurrentChange"
           />
         </div>
       </div>
@@ -52,17 +52,39 @@
 </template>
 
 <script>
+import { getArticleList } from '@/api/api'
 export default {
   data() {
     return {
-      Loading: true
+      Loading: true,
+      articleList: [],
+      pageParams: {
+        page: 1,
+        limit: 10,
+        total: 0
+      }
     }
   },
   created() {
-    console.log(this.$store.state)
+    this.getNewArticle()
   },
   mounted() {
-    this.Loading = false
+  },
+  methods: {
+    CurrentChange(obj) {
+      this.pageParams.page = obj
+      this.getNewArticle()
+    },
+    async getNewArticle() {
+      const res = await getArticleList(this.pageParams)
+      if (res.result === true) {
+        this.articleList = res.data
+        this.pageParams.total = res.count
+      } else {
+        this.$message.warning(res.msg)
+      }
+      this.Loading = false
+    }
   }
 }
 </script>
@@ -75,6 +97,7 @@ export default {
   padding: 20px;
   overflow: hidden;
   margin: 0 auto;
+  min-height: 800px;
 }
 
 .home .lbox {
@@ -110,12 +133,17 @@ export default {
 
 .article-list li {
   overflow: hidden;
-  margin-bottom: 20px;
   border-bottom: 1px dashed #eee;
-  padding-bottom: 20px;
+  padding: 10px 0;
   position: relative;
   min-height: 120px;
 }
+
+/* .article-list li:hover,.article-list li:focus{
+  border-top: 1px solid #409EFF;
+  border-bottom: 1px solid #409EFF;
+  cursor: pointer;
+} */
 
 .blogtitle{
   margin: 0 0 10px 0;
@@ -147,10 +175,12 @@ export default {
 }
 
 .bloginfo span{
-  margin: 0 5px;
+  color:#b5b5b5;
+  font-size: .85rem;
 }
 
 .bloginfo span a{
+  font-size: .85rem;
   color:#409674;
 }
 
@@ -159,7 +189,7 @@ a.viewmore{
   border-radius: 3px;
   position: absolute;
   right:10px;
-  bottom: 38px;
+  bottom: 30px;
   padding:3px 10px;
   background:#12b7de;
   color:#fff;

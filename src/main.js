@@ -15,13 +15,16 @@ import router from './router'
 // import '@/icons' // icon
 import '@/permission' // permission control
 
-// import VueMarkdownEditor from '@kangc/v-md-editor'
-// import '@kangc/v-md-editor/lib/style/base-editor.css'
-// import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import marked from 'marked'
+Vue.prototype.$marked = marked
 
-// VueMarkdownEditor.use(vuepressTheme)
+import VueMarkdownEditor from '@kangc/v-md-editor'
+import '@kangc/v-md-editor/lib/style/base-editor.css'
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
 
-// Vue.use(VueMarkdownEditor)
+VueMarkdownEditor.use(vuepressTheme)
+
+Vue.use(VueMarkdownEditor)
 
 /**
  * If you don't want to use mock-server

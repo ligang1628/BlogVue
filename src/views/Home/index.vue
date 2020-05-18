@@ -11,7 +11,7 @@
           <ul v-if="articleList">
             <li v-for="(item,index) in articleList" :key="index">
               <h3 class="blogtitle">
-                <a href="javascript:void(0)">{{ item.Title }}</a>
+                <a :href="'/article/detail/'+item.Id">{{ item.Title }}</a>
               </h3>
               <p class="blogtext">
                 {{ item.Content }}
@@ -42,10 +42,21 @@
       <div class="rbox">
         <div class="hot">
           <p>热门文章</p>
+          <ul>
+            <li v-for="(item,index) in articleList" :key="index">
+              <font style="color:#7a7a7a;font-size:14px;">[{{ index+1 }}]</font>&nbsp;<a :href="'/article/detail/'+item.Id" :title="item.Title">{{ item.Title }}</a>
+            </li>
+          </ul>
         </div>
-        <div class="hot">最近更新</div>
-        <div class="hot">分类目录</div>
-        <div class="hot">文章归档</div>
+        <div class="update">
+          <p>最近更新</p>
+        </div>
+        <div class="category">
+          <p>分类目录</p>
+        </div>
+        <div class="month">
+          <p>文章归档</p>
+        </div>
       </div>
     </article>
   </div>
@@ -93,7 +104,6 @@ export default {
 
 .home .newhome {
   width:1200px;
-  background-color: #ffffff;
   padding: 20px;
   overflow: hidden;
   margin: 0 auto;
@@ -102,7 +112,9 @@ export default {
 
 .home .lbox {
   width:75%;
+  padding-left: 20px;
   float: left;
+  background-color: #ffffff;
   overflow: hidden;
 }
 
@@ -215,11 +227,36 @@ a.viewmore{
   display: none !important;
 }
 
-.rbox .hot{
+.rbox .hot,.rbox .update,.rbox .category,.rbox .month{
   margin-bottom: 15px;
   font-size: 15px;
+  background: #ffffff;
+  padding:10px 20px;
 }
 
+.rbox ul{
+  margin:0;
+  padding:0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+.rbox ul li {
+  color:#7a7a7a;
+  font-size: 13px;
+  /* font-size: 0.928571429rem; */
+  line-height: 1.846153846;
+  font-family:"Open Sans", Helvetica, Arial, sans-serif;
+}
+
+.rbox ul li a{
+  text-decoration: underline;
+}
+
+.rbox ul li a:hover,.rbox ul li a:focus{
+  color: #21759b;
+}
 .rbox .hot p{
   color:#636363;
 }

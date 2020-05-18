@@ -6,6 +6,7 @@ import { resetRouter } from '@/router'
 
 // create an axios instance
 const service = axios.create({
+  // baseURL: 'http://www.ligang.info:5000',
   baseURL: 'http://localhost:5000'//, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   // timeout: 5000 // request timeout

@@ -98,8 +98,12 @@ div:focus {
   background-color: #ffffff !important;
 }
 
-// 去除编辑器工具栏
+// 编辑器
+.v-md-plugin-tip-title{
+  display: none;
+}
 
+// 去除编辑器工具栏
 .message .v-md-editor__toolbar{
   display:none !important;
 }

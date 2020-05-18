@@ -18,9 +18,9 @@ export default {
 
 <style scoped>
 .mood {
-  width:90%;
+  width:1200px;
+  padding: 20px;
   min-height: 800px;
-  padding: 10px;
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 5px;

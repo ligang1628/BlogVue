@@ -18,9 +18,10 @@ export default {
 
 <style scoped>
 .about {
-  width:90%;
+  width:1200px;
+  padding: 20px;
   min-height: 800px;
-  padding: 10px;
+  /* padding: 10px; */
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 5px;

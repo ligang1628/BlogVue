@@ -92,7 +92,7 @@
         <router-view />
       </div>
       <el-footer class="copyright">
-        <div style="width:100%;margin:0 auto;padding:20px 0;" class="copyBeian">
+        <div style="width:100%;margin:0 auto;padding:15px 0;" class="copyBeian">
           <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030602004444">
             <img src="../assets/images/beian.png" style="float:left;">粤公网安备 44030602004444号
           </a>
@@ -207,12 +207,15 @@ export default {
 .copyright{
   width: 100%;
   text-align:center !important;
-  background-color: #000000;
+  background-color: #ffffff;
+  color:#000000;
   line-height: 20px;
+  border-top: 8px solid #00c1de;
+  border-bottom:none;
 }
 
 .copyright a {
-  color:rgba(255,255,255,.95);
+  /* color:rgba(255,255,255,.95); */
   font-size: 12px;
   margin-right: 10px;
   display: inline-block;

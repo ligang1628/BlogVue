@@ -52,10 +52,10 @@ export default {
 
 <style scoped>
 .content {
-  width:100%;
+  width:1200px;
   min-height: 800px;
   margin: 0 auto;
-  padding:10px;
+  padding:20px;
   background-color: #ffffff;
   border-radius: 5px;
 }

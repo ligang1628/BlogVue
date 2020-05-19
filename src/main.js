@@ -21,7 +21,9 @@ Vue.prototype.$marked = marked
 import VueMarkdownEditor from '@kangc/v-md-editor'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index'
 
+VueMarkdownEditor.use(createEmojiPlugin())
 VueMarkdownEditor.use(vuepressTheme)
 
 Vue.use(VueMarkdownEditor)

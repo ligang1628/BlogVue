@@ -101,6 +101,18 @@ export const constantRoutes = [
         name: '关于我',
         component: () => import('@/views/about/index'),
         meta: { title: '关于我' }
+      },
+      {
+        path: 'time/:time',
+        name: '时间',
+        component: () => import('@/views/time/index'),
+        mate: { title: '' }
+      },
+      {
+        path: 'cate/:id',
+        name: '类别',
+        component: () => import('@/views/time/index'),
+        mate: { title: '' }
       }]
   },
   {

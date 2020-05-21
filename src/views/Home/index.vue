@@ -17,12 +17,12 @@
                 {{ item.Content }}
               </p>
               <p class="bloginfo">
-                <el-avatar :size="40" :src="item.avatar" style="vertical-align:middle;" />
-                <span>{{ item.CName }}</span>
-                <span>{{ item.CreateTime }}</span>
-                <span>【<a href="javascript:void(0)">{{ item.UserName }}</a>】</span>
+                <!-- <el-avatar :size="40" :src="item.avatar" style="vertical-align:middle;" /> -->
+                <span>发布于 <a :href="'/time/'+item.CreateTime">{{ item.CreateTime }}</a>。</span>
+                <span>属于 <a :href="'/cate/'+item.CName">{{ item.CName }}</a> 分类</span>
+                <!-- <span>【<a href="javascript:void(0)">{{ item.UserName }}</a>】</span> -->
               </p>
-              <a :href="'/article/detail/'+item.Id" class="viewmore">更多</a>
+              <!-- <a :href="'/article/detail/'+item.Id" class="viewmore">更多</a> -->
             </li>
           </ul>
         </div>
@@ -42,20 +42,35 @@
       <div class="rbox">
         <div class="hot">
           <p>热门文章</p>
-          <ul>
-            <li v-for="(item,index) in articleList" :key="index">
-              <font style="color:#7a7a7a;font-size:14px;">[{{ index+1 }}]</font>&nbsp;<a :href="'/article/detail/'+item.Id" :title="item.Title">{{ item.Title }}</a>
+          <ul v-if="hostArticle">
+            <li v-for="(item,index) in hostArticle" :key="index">
+              <font style="color:#7a7a7a;font-size:14px;">[{{ index+1 }}]</font>&nbsp;<a :href="'/article/detail/'+item.Id" :title="item.Title">{{ item.Title }}</a> ({{ item.Count }})
             </li>
           </ul>
         </div>
         <div class="update">
           <p>最近更新</p>
+          <ul v-if="recentArticle">
+            <li v-for="(item,index) in recentArticle" :key="index">
+              <font style="color:#7a7a7a;font-size:14px;">[{{ index+1 }}]</font>&nbsp;<a :href="'/article/detail/'+item.Id" :title="item.Title">{{ item.Title }}</a>
+            </li>
+          </ul>
         </div>
         <div class="category">
           <p>分类目录</p>
+          <ul v-if="catelogue">
+            <li v-for="(item,index) in catelogue" :key="index">
+              <a :href="'/cate/'+item.Id" :title="item.Name">{{ item.Name }}</a> ({{ item.Count }})
+            </li>
+          </ul>
         </div>
         <div class="month">
           <p>文章归档</p>
+          <ul v-if="articleFiling">
+            <li v-for="(item,index) in articleFiling" :key="index">
+              <a :href="'/time/' + item.Year + '-' + item.Month">{{ item.Year }}年{{ item.Month }}月</a> ({{ item.Count }})
+            </li>
+          </ul>
         </div>
       </div>
     </article>
@@ -63,12 +78,16 @@
 </template>
 
 <script>
-import { getArticleList } from '@/api/api'
+import { getArticleList, getHotArticle, getRecentUpdate, getCategoryNum, getArticleFiling } from '@/api/api'
 export default {
   data() {
     return {
       Loading: true,
       articleList: [],
+      hostArticle: [],
+      recentArticle: [],
+      catelogue: [],
+      articleFiling: [],
       pageParams: {
         page: 1,
         limit: 10,
@@ -78,6 +97,7 @@ export default {
   },
   created() {
     this.getNewArticle()
+    this.getInfo()
   },
   mounted() {
   },
@@ -94,6 +114,46 @@ export default {
       } else {
         this.$message.warning(res.msg)
       }
+      this.Loading = false
+    },
+    async getInfo() {
+      const p1 = await new Promise((resolve, reject) => {
+        getHotArticle().then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+
+      const p2 = await new Promise((resolve, reject) => {
+        getRecentUpdate().then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+
+      const p3 = await new Promise((resolve, reject) => {
+        getCategoryNum().then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+
+      const p4 = await new Promise((resolve, reject) => {
+        getArticleFiling().then(res => {
+          resolve(res)
+        }).catch(err => {
+          reject(err)
+        })
+      })
+
+      const res = await Promise.all([p1, p2, p3, p4])
+      this.hostArticle = res[0].data
+      this.recentArticle = res[1].data
+      this.catelogue = res[2].data
+      this.articleFiling = res[3].data
       this.Loading = false
     }
   }
@@ -112,7 +172,7 @@ export default {
 
 .home .lbox {
   width:75%;
-  padding-left: 20px;
+  padding:0 20px;
   float: left;
   background-color: #ffffff;
   overflow: hidden;
@@ -187,13 +247,18 @@ export default {
 }
 
 .bloginfo span{
-  color:#b5b5b5;
+  color: #757575;
   font-size: .85rem;
 }
 
 .bloginfo span a{
   font-size: .85rem;
-  color:#409674;
+  text-decoration:underline;
+  /* color:#409674; */
+}
+
+.bloginfo span a:hover,.bloginfo span a:focus {
+  color:#21759b;
 }
 
 a.viewmore{

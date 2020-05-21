@@ -2,7 +2,7 @@
   <div class="message">
     <div class="inputBox">
       <v-md-editor v-model="text" :mode="mode" />
-      <p class="show"><i class="el-icon-position fly" :title="setModeTitle" @click="setMode" :style="{'color' : setModeColor }" /></p>
+      <p class="show"><i class="el-icon-position fly" :title="setModeTitle" :style="{'color' : setModeColor }" @click="setMode" /></p>
       <el-button type="primary" class="reply">留言</el-button>
     </div>
   </div>

@@ -29,7 +29,6 @@ export default {
   },
   mounted() {
     this.id = this.$route.params.id
-    console.log(this.id)
     this.getInfo()
   },
   methods: {

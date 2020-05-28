@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div v-loading="Loading" class="index" element-loading-background="rgba(247, 245, 245, 0.7)" element-loading-text="使劲加载中...">
     <div class="article-header">
       <p>
         <label class="title">最新博文</label>
@@ -20,6 +20,7 @@
           </p>
         </li>
       </ul>
+      <span v-else>暂无博文</span>
     </div>
     <div class="page">
       <el-pagination
@@ -37,31 +38,37 @@
 </template>
 
 <script>
-import { getArticleList } from '@/api/api'
+import { getArticleByTime } from '@/api/api'
 export default {
   data() {
     return {
+      time: '',
       Loading: true,
       articleList: [],
       pageParams: {
         page: 1,
         limit: 10,
+        time: '',
         total: 0
       }
     }
   },
   created() {
-    this.getNewArticle()
+    // this.getArticle()
   },
   mounted() {
+    const time = this.$route.params.time
+    this.time = time.replace('-', ' 年 ') + ' 月'
+    this.pageParams.time = time
+    this.getArticle()
   },
   methods: {
     CurrentChange(obj) {
       this.pageParams.page = obj
       this.getNewArticle()
     },
-    async getNewArticle() {
-      const res = await getArticleList(this.pageParams)
+    async getArticle() {
+      const res = await getArticleByTime(this.pageParams)
       if (res.result === true) {
         this.articleList = res.data
         this.pageParams.total = res.count

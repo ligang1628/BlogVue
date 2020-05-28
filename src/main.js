@@ -21,8 +21,14 @@ Vue.prototype.$marked = marked
 import VueMarkdownEditor from '@kangc/v-md-editor'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index'
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn'
+import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index'
 
 VueMarkdownEditor.use(vuepressTheme)
+VueMarkdownEditor.use(createEmojiPlugin())
+VueMarkdownEditor.use(createKatexPlugin())
+VueMarkdownEditor.use(createTodoListPlugin())
 
 Vue.use(VueMarkdownEditor)
 

@@ -1,8 +1,9 @@
 <template>
-  <div class="index">
+  <div v-loading="Loading" class="index" element-loading-background="rgba(247, 245, 245, 0.7)" element-loading-text="使劲加载中...">
     <div class="article-header">
       <p>
-        <label class="title">最新博文</label>
+        <label v-if="articleList" class="title">{{ CName }}</label>
+        <label v-else class="title">最新博文</label>
       </p>
     </div>
     <div class="article-list">
@@ -20,6 +21,7 @@
           </p>
         </li>
       </ul>
+      <span v-else>暂无博文</span>
     </div>
     <div class="page">
       <el-pagination
@@ -37,34 +39,40 @@
 </template>
 
 <script>
-import { getArticleList } from '@/api/api'
+import { getArticleByCId } from '@/api/api'
 export default {
   data() {
     return {
       Loading: true,
+      CName: '',
       articleList: [],
       pageParams: {
         page: 1,
         limit: 10,
+        cid: 0,
         total: 0
       }
     }
   },
   created() {
-    this.getNewArticle()
+    // this.getArticle()
   },
   mounted() {
+    const id = this.$route.params.id
+    this.pageParams.cid = id
+    this.getArticle()
   },
   methods: {
     CurrentChange(obj) {
       this.pageParams.page = obj
       this.getNewArticle()
     },
-    async getNewArticle() {
-      const res = await getArticleList(this.pageParams)
+    async getArticle() {
+      const res = await getArticleByCId(this.pageParams)
       if (res.result === true) {
         this.articleList = res.data
         this.pageParams.total = res.count
+        this.CName = res.data.length > 0 ? res.data[0].CName : '最新博文'
       } else {
         this.$message.warning(res.msg)
       }

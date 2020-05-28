@@ -55,7 +55,7 @@ export const constantRoutes = [
             mate: { title: '' }
           },
           {
-            path: 'cate/:id(\d+)',
+            path: 'cate/:id',
             name: '类别',
             component: () => import('@/views/article/cate'),
             mate: { title: '' }

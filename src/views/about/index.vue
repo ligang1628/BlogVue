@@ -1,6 +1,6 @@
 <template v-loading="Loading" element-loading-background="rgba(247, 245, 245, 0.7)" element-loading-text="使劲加载中...">
   <div class="about">
-    关于我
+    谜一样的我
   </div>
 </template>
 

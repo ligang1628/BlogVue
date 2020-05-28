@@ -44,9 +44,29 @@ export const constantRoutes = [
     children: [
       {
         path: '/',
-        name: '首页',
-        component: () => import('@/views/Home/index'),
-        meta: { title: '首页' }
+        name: '',
+        component: () => import('@/views/Home/public'),
+        meta: { title: '' },
+        children: [
+          {
+            path: '/',
+            name: '首页',
+            component: () => import('@/views/Home/index'),
+            mate: { title: '' }
+          },
+          {
+            path: 'cate/:id(\d+)',
+            name: '类别',
+            component: () => import('@/views/article/cate'),
+            mate: { title: '' }
+          },
+          {
+            path: 'time/:time',
+            name: '时间',
+            component: () => import('@/views/article/time'),
+            mate: { title: '' }
+          }
+        ]
       },
       {
         path: 'mood',
@@ -62,7 +82,7 @@ export const constantRoutes = [
             meta: { title: '随笔列表' }
           },
           {
-            path: 'detail/:id(\\d+)',
+            path: 'post/:id(\\d+)',
             name: '查看随笔',
             component: () => import('@/views/mood/detail'),
             meta: { title: '查看随笔' }
@@ -72,19 +92,19 @@ export const constantRoutes = [
       {
         path: 'article',
         name: '技术分析',
-        redirect: '/article/index',
+        redirect: '/',
         component: Index,
         meta: { title: '技术分析' },
         children: [
+          // {
+          //   path: 'index',
+          //   component: () => import('@/views/article/index'),
+          //   name: '文章列表',
+          //   mata: { title: '文章列表' }
+          // },
           {
-            path: 'index',
-            component: () => import('@/views/article/index'),
-            name: '文章列表',
-            mata: { title: '文章列表' }
-          },
-          {
-            path: 'detail/:id',
-            component: () => import('@/views/article/detail'),
+            path: 'post/:id',
+            component: () => import('@/views/article/post'),
             name: '查看文章',
             mata: { title: '查看文章' }
           }

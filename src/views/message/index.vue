@@ -1,7 +1,11 @@
 <template v-loading="Loading" element-loading-background="rgba(247, 245, 245, 0.7)" element-loading-text="使劲加载中...">
   <div class="message">
     <div class="inputBox">
+<<<<<<< HEAD
       <v-md-editor v-model="text" :mode="mode" left-toolbar="emoji" right-toolbar="" />
+=======
+      <v-md-editor v-model="text" :mode="mode" />
+>>>>>>> f0b9db1f18ee03377ef346bbe0e92aaf614cf0bd
       <p class="show"><i class="el-icon-position fly" :title="setModeTitle" :style="{'color' : setModeColor }" @click="setMode" /></p>
       <el-button type="primary" class="reply">留言</el-button>
     </div>

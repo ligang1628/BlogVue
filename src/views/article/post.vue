@@ -108,11 +108,11 @@ export default {
         if (!res.data) {
           this.$router.push({ path: '/404' })
         } else {
-          const { art, com, prev, next } = res.data
+          const { art, com, data } = res.data
           this.article = art
           this.CommentList = com
-          this.prev = prev
-          this.next = next
+          this.prev = data.prev
+          this.next = data.next
         }
       } else {
         this.$message.warning(res.msg)
@@ -194,6 +194,11 @@ export default {
 
 .nextRead{
   padding: 20px 20px;
+}
+
+.nextRead a:hover{
+  color:#21759b;
+  text-decoration: underline;
 }
 
 .blog_comment_body {

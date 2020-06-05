@@ -82,10 +82,25 @@ export const rePlyComment = (data, params) => {
   })
 }
 
+export const replyMessage = (data, params) => {
+  return request({
+    url: '/api/message/ReplyMessage' + data,
+    method: 'post',
+    data: params
+  })
+}
+
 export const getAddress = params => {
   return axios({
     // 高德
     url: 'https://restapi.amap.com/v3/ip?output=json&key=1f60e54f26b4986f6d9c5c7b41535738',
+    method: 'get'
+  })
+}
+
+export const QQlogin = params => {
+  return axios({
+    url: '',
     method: 'get'
   })
 }

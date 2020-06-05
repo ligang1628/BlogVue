@@ -3,7 +3,26 @@
     <div class="inputBox">
       <v-md-editor v-model="text" :mode="mode" left-toolbar="emoji" right-toolbar="" />
       <p class="show"><i class="el-icon-position fly" :title="setModeTitle" :style="{'color' : setModeColor }" @click="setMode" /></p>
-      <el-button type="primary" class="reply">留言</el-button>
+      <el-button type="primary" class="reply" @click="replyMessage">留言</el-button>
+    </div>
+    <div v-if="CommentList" class="area">
+      <div v-for="(item,index) in CommentList" :key="item.Id" class="commentArea">
+        <div class="history">
+          <div class="top">
+            <a :href="'#' + item.Id" class="index">#{{ index+1 }}楼</a>
+            <span v-if="item.UserId === name">[楼主]</span>
+            <span>{{ item.Address }}</span>
+            <a :id="'comment_anchor_' + item.Id" :name="item.Id" />
+            <span class="time">{{ item.CreateTime }}</span>
+            <span class="username">{{ item.NickName }}</span>
+          </div>
+          <div class="feedbackCon">
+            <div :id="'comment_body_'+item.Id">
+              <div class="blog_comment_body" v-html="replaceBr(item.Content)">{{ item.Content }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -15,7 +34,8 @@ export default {
       id: '',
       Loading: false,
       text: '',
-      mode: 'edit'
+      mode: 'edit',
+      CommentList: []
     }
   },
   computed: {
@@ -24,6 +44,12 @@ export default {
     },
     setModeTitle() {
       return this.mode === 'edit' ? '预览' : '编辑'
+    },
+    token() {
+      return this.$store.state.user.token
+    },
+    name() {
+      return this.$store.state.user.name
     }
   },
   methods: {
@@ -32,6 +58,12 @@ export default {
         this.mode = 'preview'
       } else {
         this.mode = 'edit'
+      }
+    },
+    replyMessage() {
+      if (!this.token) {
+        this.$message.info('请先登录')
+        return
       }
     }
   }

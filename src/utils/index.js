@@ -49,10 +49,11 @@ export function parseTime(time, cFormat) {
  * @returns {string}
  */
 export function formatTime(time, option) {
+  let result
   if (('' + time).length === 10) {
-    time = parseInt(time) * 1000
+    result = parseInt(time) * 1000
   } else {
-    time = +time
+    result = time
   }
   const d = new Date(time)
   const now = Date.now()
@@ -70,7 +71,7 @@ export function formatTime(time, option) {
     return '1天前'
   }
   if (option) {
-    return parseTime(time, option)
+    return parseTime(result, option)
   } else {
     return (
       d.getMonth() +

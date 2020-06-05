@@ -31,6 +31,7 @@ VueMarkdownEditor.use(createKatexPlugin())
 VueMarkdownEditor.use(createTodoListPlugin())
 
 Vue.use(VueMarkdownEditor)
+console.log(VueMarkdownEditor.version)
 
 /**
  * If you don't want to use mock-server

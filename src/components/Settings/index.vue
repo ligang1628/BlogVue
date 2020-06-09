@@ -4,19 +4,21 @@
       <h3 class="drawer-title">登录方式</h3>
 
       <div class="drawer-item">
-        <span>QQ 登录</span>
+        <a href="javascript:void(0)" @click="QQ_Login">
+          <img src="../../assets/images/Connect_logo_3.png">
+        </a>
       </div>
 
-      <div class="drawer-item">
+      <!-- <div class="drawer-item">
         <span>微信 登录</span>
-      </div>
+      </div> -->
 
     </div>
   </div>
 </template>
 
 <script>
-
+import { GetQQToken } from '@/api/api'
 export default {
   data() {
     return {}
@@ -25,7 +27,9 @@ export default {
 
   },
   methods: {
-
+    QQ_Login() {
+      GetQQToken()
+    }
   }
 }
 </script>

@@ -98,9 +98,10 @@ export const getAddress = params => {
   })
 }
 
-export const QQlogin = params => {
-  return axios({
-    url: '',
-    method: 'get'
+export const GetQQToken = params => {
+  return request({
+    url: '/api/OAuth/GetQQToken',
+    method: 'get',
+    params
   })
 }

@@ -27,8 +27,10 @@ export default {
 
   },
   methods: {
-    QQ_Login() {
-      GetQQToken()
+    async QQ_Login() {
+      const res = await GetQQToken()
+      console.log(res)
+      window.location.href = res
     }
   }
 }

@@ -30,9 +30,12 @@
           />
         </div>
         <div class="operation">
-          <div class="right">
+          <div v-if="token" class="right">
             <el-button type="warning" style="display:none" :class="{btnCancal: Cancel}" @click="HandlerCancel">取消评论</el-button>
             <el-button type="primary" @click="reply()">评&nbsp;&nbsp;论</el-button>
+          </div>
+          <div v-else class="right">
+            <el-button style="background-color:#5fbeaa;color:#fff;" @click="login">登&nbsp;&nbsp;录</el-button>
           </div>
         </div>
       </div>
@@ -102,14 +105,22 @@
         </ul>
       </div>
 
+      <div class="loginQQ">
+        <login :url="QQ" :dialog="dialog" @closeDialog="handlerDialog" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getArticleInfo, getAddress, rePlyComment } from '@/api/api'
+import Login from '@/components/Login/index'
+import { getArticleInfo, getAddress, rePlyComment, GetQQToken } from '@/api/api'
 import { formatTime } from '@/utils/index'
 export default {
+  name: 'Post',
+  components: {
+    'login': Login
+  },
   data() {
     return {
       activeIndex: -1,
@@ -132,7 +143,9 @@ export default {
       },
       CommentList: [],
       prev: {},
-      next: {}
+      next: {},
+      QQ: '',
+      dialog: false
     }
   },
   computed: {
@@ -157,6 +170,15 @@ export default {
     },
     time(time, options) {
       return formatTime(time, options)
+    },
+    async login() {
+      const res = await GetQQToken()
+      this.QQ = res
+      this.dialog = true
+    },
+    handlerDialog(params) {
+      console.log(params)
+      this.dialog = params
     },
     HandlerCancel() {
       this.Comment.ParentId = ''
@@ -207,6 +229,10 @@ export default {
       this.HandlerCancel()
     },
     replyInfo(item) {
+      if (!this.token) {
+        this.$message.info('请先登录')
+        return
+      }
       // 若不存在ParentId,则回复的是等级1
       if (item.Level === 1) {
         this.Comment.ParentId = item.Id

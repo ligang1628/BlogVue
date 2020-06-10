@@ -102,25 +102,26 @@
       <el-tooltip placement="top" content="返回顶部">
         <back-to-top :custom-style="BackTo" :visibility-height="300" :back-position="50" transition-name="fade" />
       </el-tooltip>
-      <div :class="classObj" class="app-wrapper">
+      <!-- <div :class="classObj" class="app-wrapper">
         <div class="main-container">
           <right-panel>
             <settings />
           </right-panel>
         </div>
-      </div>
+      </div> -->
     </el-container>
   </div>
 </template>
 
 <script>
 import BackToTop from '@/components/BackToTop'
-import RightPanel from '@/components/RightPanel'
-import Settings from '@/components/Settings'
+// import RightPanel from '@/components/RightPanel'
+// import Settings from '@/components/Settings'
 import { mapState } from 'vuex'
 export default {
   name: 'Layout',
-  components: { BackToTop, RightPanel, Settings },
+  components: { BackToTop },
+  // components: { BackToTop, RightPanel, Settings },
   data() {
     return {
       activeIndex: '1',

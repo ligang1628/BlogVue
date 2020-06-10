@@ -14,23 +14,27 @@
       </div> -->
 
     </div>
+    <!-- <el-dialog title="QQ登录" :visible.sync="showQQ">
+      <iframe :src="urlQQ" />
+    </el-dialog> -->
   </div>
 </template>
 
 <script>
-import { GetQQToken } from '@/api/api'
+// import { GetQQToken } from '@/api/api'
 export default {
   data() {
-    return {}
+    return {
+      urlQQ: '',
+      showQQ: false
+    }
   },
   computed: {
 
   },
   methods: {
-    async QQ_Login() {
-      const res = await GetQQToken()
-      console.log(res)
-      window.location.href = res
+    QQ_Login() {
+      // const res = await GetQQToken()
     }
   }
 }

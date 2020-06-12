@@ -59,7 +59,7 @@
                 <div class="feedbackManage show" :class="{ active : activeIndex === item.Id }">
                   <span class="comment_actions">
                     <a href="javascript:void(0)" @click="replyInfo(item)">回复</a>
-                    <a href="javascript:void(0)">举报</a>
+                    <!-- <a href="javascript:void(0)">举报</a> -->
                   </span>
                 </div>
 
@@ -80,7 +80,7 @@
                       <div class="feedbackManage show" :class="{active: activeIndex === itm.Id}">
                         <span class="comment_actions">
                           <a href="javascript:void(0)" @click="replyInfo(itm)">回复</a>
-                          <a href="javascript:void(0)">举报</a>
+                          <!-- <a href="javascript:void(0)">举报</a> -->
                         </span>
                       </div>
                       <a href="javascript:void(0)" style="vertical-align:middle">
@@ -109,12 +109,15 @@
         <login :url="QQ" :dialog="dialog" @closeDialog="handlerDialog" />
       </div>
     </div>
+    <div v-else>
+      请刷新重试
+    </div>
   </div>
 </template>
 
 <script>
 import Login from '@/components/Login/index'
-import { getArticleInfo, getAddress, rePlyComment, GetQQToken } from '@/api/api'
+import { getArticleInfo, getAddress, rePlyComment, GetQQToken, getState } from '@/api/api'
 import { formatTime } from '@/utils/index'
 export default {
   name: 'Post',
@@ -127,12 +130,13 @@ export default {
       defaultPlace: '既然来了，就说几句',
       Cancel: false,
       id: '',
+      times: null,
       Loading: true,
       article: {
-        title: '',
-        Content: '',
-        CreateTime: '',
-        UserName: ''
+        // title: '',
+        // Content: '',
+        // CreateTime: '',
+        // UserName: ''
       },
       Comment: {
         ArticleId: '',
@@ -156,10 +160,16 @@ export default {
       return this.$store.state.user.name
     }
   },
+  created() {
+    this.IsLogin()
+  },
   mounted() {
     this.id = this.$route.params.id
     this.getInfo()
-    console.log(this.$store.state)
+  },
+  destroyed() {
+    clearInterval(this.times)
+    this.times = null
   },
   methods: {
     enter(idx) {
@@ -175,9 +185,11 @@ export default {
       const res = await GetQQToken()
       this.QQ = res
       this.dialog = true
+      const res1 = await getState()
+      console.log(res1)
     },
+    // 关闭弹窗
     handlerDialog(params) {
-      console.log(params)
       this.dialog = params
     },
     HandlerCancel() {
@@ -254,6 +266,22 @@ export default {
       if (data.info === 'OK') {
         this.Comment.Address = data.province + data.city
       }
+    },
+    IsLogin() {
+      // if (!this.token) {
+      //   this.times = setInterval(async() => {
+      //     const res = await getState()
+      //     if (res.code !== 1) {
+      //       if (res.code === 0) {
+      //         this.$message.success('登录成功')
+      //         this.dialog = false
+      //       } else {
+      //         this.$message.warning(res.msg)
+      //       }
+      //       clearInterval(this.times)
+      //     }
+      //   }, 6000)
+      // }
     }
   }
 }

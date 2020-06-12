@@ -105,3 +105,11 @@ export const GetQQToken = params => {
     params
   })
 }
+
+export const getState = params => {
+  return request({
+    url: '/api/OAuth/getloginstate',
+    method: 'get',
+    params
+  })
+}

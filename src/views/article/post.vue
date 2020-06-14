@@ -105,9 +105,9 @@
         </ul>
       </div>
 
-      <div class="loginQQ">
+      <!-- <div class="loginQQ">
         <login :url="QQ" :dialog="dialog" @closeDialog="handlerDialog" />
-      </div>
+      </div> -->
     </div>
     <div v-else>
       请刷新重试
@@ -116,14 +116,11 @@
 </template>
 
 <script>
-import Login from '@/components/Login/index'
-import { getArticleInfo, getAddress, rePlyComment, GetQQToken, getState } from '@/api/api'
+// import Login from '@/components/Login/index'
+import { getArticleInfo, getAddress, rePlyComment } from '@/api/api'
 import { formatTime } from '@/utils/index'
 export default {
   name: 'Post',
-  components: {
-    'login': Login
-  },
   data() {
     return {
       activeIndex: -1,
@@ -147,9 +144,9 @@ export default {
       },
       CommentList: [],
       prev: {},
-      next: {},
-      QQ: '',
-      dialog: false
+      next: {}
+      // QQ: '',
+      // dialog: false
     }
   },
   computed: {
@@ -161,15 +158,15 @@ export default {
     }
   },
   created() {
-    this.IsLogin()
+    // this.IsLogin()
   },
   mounted() {
     this.id = this.$route.params.id
     this.getInfo()
   },
   destroyed() {
-    clearInterval(this.times)
-    this.times = null
+    // clearInterval(this.times)
+    // this.times = null
   },
   methods: {
     enter(idx) {
@@ -182,16 +179,12 @@ export default {
       return formatTime(time, options)
     },
     async login() {
-      const res = await GetQQToken()
-      this.QQ = res
-      this.dialog = true
-      const res1 = await getState()
-      console.log(res1)
+      this.$router.push({ name: 'login', query: { 'redirect': '/456' }})
     },
-    // 关闭弹窗
-    handlerDialog(params) {
-      this.dialog = params
-    },
+    // // 关闭弹窗
+    // handlerDialog(params) {
+    //   this.dialog = params
+    // },
     HandlerCancel() {
       this.Comment.ParentId = ''
       this.Comment.PId_UserId = ''
@@ -266,22 +259,6 @@ export default {
       if (data.info === 'OK') {
         this.Comment.Address = data.province + data.city
       }
-    },
-    IsLogin() {
-      // if (!this.token) {
-      //   this.times = setInterval(async() => {
-      //     const res = await getState()
-      //     if (res.code !== 1) {
-      //       if (res.code === 0) {
-      //         this.$message.success('登录成功')
-      //         this.dialog = false
-      //       } else {
-      //         this.$message.warning(res.msg)
-      //       }
-      //       clearInterval(this.times)
-      //     }
-      //   }, 6000)
-      // }
     }
   }
 }

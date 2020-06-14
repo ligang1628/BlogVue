@@ -98,18 +98,18 @@ export const getAddress = params => {
   })
 }
 
-export const GetQQToken = params => {
-  return request({
-    url: '/api/OAuth/GetQQToken',
-    method: 'get',
-    params
-  })
-}
+// export const GetQQToken = params => {
+//   return request({
+//     url: '/api/OAuth/GetQQToken',
+//     method: 'get',
+//     params
+//   })
+// }
 
-export const getState = params => {
-  return request({
-    url: '/api/OAuth/getloginstate',
-    method: 'get',
-    params
-  })
-}
+// export const getState = params => {
+//   return request({
+//     url: '/api/OAuth/getloginstate',
+//     method: 'get',
+//     params
+//   })
+// }

@@ -32,11 +32,13 @@ import Index from '@/views/index'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  // {
-  //   path: '/login',
-  //   component: () => import('@/views/login/index'),
-  //   hidden: true
-  // },
+  {
+    path: '/login',
+    meta: { title: '登录' },
+    name: 'login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
   {
     path: '/',
     component: Layout,

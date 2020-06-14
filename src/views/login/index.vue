@@ -50,11 +50,8 @@
 </template>
 
 <script>
-import SocialSign from './components/SocialSignin'
-
 export default {
   name: 'Login',
-  components: { SocialSign },
   data() {
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {

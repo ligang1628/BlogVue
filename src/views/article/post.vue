@@ -30,7 +30,7 @@
           />
         </div>
         <div class="operation">
-          <div v-if="token" class="right">
+          <div v-if="tokenExists" class="right">
             <el-button type="warning" style="display:none" :class="{btnCancal: Cancel}" @click="HandlerCancel">取消评论</el-button>
             <el-button type="primary" @click="reply()">评&nbsp;&nbsp;论</el-button>
           </div>
@@ -129,12 +129,7 @@ export default {
       id: '',
       times: null,
       Loading: true,
-      article: {
-        // title: '',
-        // Content: '',
-        // CreateTime: '',
-        // UserName: ''
-      },
+      article: {},
       Comment: {
         ArticleId: '',
         Content: '',
@@ -144,21 +139,24 @@ export default {
       },
       CommentList: [],
       prev: {},
-      next: {}
-      // QQ: '',
-      // dialog: false
+      next: {},
+      tokenExists: false
     }
   },
   computed: {
-    token() {
-      return this.$store.state.user.token
-    },
     name() {
       return this.$store.state.user.name
     }
   },
   created() {
-    // this.IsLogin()
+    console.log(this.$store.state.user)
+    const token = this.$store.state.user.token
+    if (token !== 'undefined' && token !== undefined) {
+      this.tokenExists = true
+    }
+  },
+  beforeCreate() {
+
   },
   mounted() {
     this.id = this.$route.params.id
@@ -179,7 +177,7 @@ export default {
       return formatTime(time, options)
     },
     async login() {
-      this.$router.push({ name: 'login', query: { 'redirect': '/456' }})
+      this.$router.push({ name: 'login', query: { 'redirect': '/article/post/' + this.id }})
     },
     // // 关闭弹窗
     // handlerDialog(params) {
@@ -216,12 +214,12 @@ export default {
       this.Loading = false
     },
     async reply() {
-      if (!this.token) {
+      if (!this.tokenExists) {
         this.$message.info('请先登录')
         return
       }
       await this.Address()
-      this.Comment.ArticleId = this.Article.Id
+      this.Comment.ArticleId = this.Id
       this.Comment.Content = this.Comment.Content.replace(/(^\s*)|(\s*$)/g, '')
       const res = await rePlyComment('?name=' + this.name, this.Comment)
       if (res.result === true) {
@@ -234,7 +232,7 @@ export default {
       this.HandlerCancel()
     },
     replyInfo(item) {
-      if (!this.token) {
+      if (!this.tokenExists) {
         this.$message.info('请先登录')
         return
       }

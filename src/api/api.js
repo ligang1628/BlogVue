@@ -1,6 +1,15 @@
 import request from '@/utils/request'
 import axios from 'axios'
 
+// 登录
+export const login = params => {
+  return request({
+    url: '/api/account/signin',
+    method: 'get',
+    params
+  })
+}
+
 // 文章列表
 export const getArticleList = params => {
   return request({

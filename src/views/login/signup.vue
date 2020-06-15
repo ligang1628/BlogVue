@@ -37,7 +37,7 @@
         </div>
       </el-form-item>
       <el-form-item>
-        还没有账号?<a href="/signup" style="color:#5d9cec;font-weight:bold;">注册</a>
+        还没有账号?<a href="/signup" target="black" style="color:#5d9cec;font-weight:bold;">注册</a>
       </el-form-item>
     </el-form>
 
@@ -78,8 +78,6 @@ export default {
           this.redirect = query.redirect
           this.otherQuery = this.getOtherQuery(query)
         }
-        console.log(this.redirect)
-        console.log(this.otherQuery)
       },
       immediate: true
     }
@@ -104,13 +102,9 @@ export default {
           // 进入 api/user/login
           this.$store.dispatch('user/login', { username: this.loginForm.username, password })
             .then((data) => {
+              this.$message.success(data.msg)
+              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
-              if (data.result === true) {
-                this.$message.success(data.msg)
-                this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
-              } else {
-                this.$message.error(data.msg)
-              }
             })
             .catch(() => {
               this.loading = false

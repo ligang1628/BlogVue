@@ -40,6 +40,13 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/signup',
+    meta: { title: '注册' },
+    name: 'signup',
+    component: () => import('@/views/login/signup'),
+    hidden: true
+  },
+  {
     path: '/',
     component: Layout,
     redirect: '/',

@@ -28,12 +28,12 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">Login</el-button>
+        <el-button :loading="loading" type="danger" style="width:100%;" @click.native.prevent="handleLogin">Login</el-button>
       </el-form-item>
       <el-form-item style="overflow:hidden;">
         <div style="display:block;float:left;">
           <i class="iconfont icon-blog-suo" />
-          <a href="/forget" target="black">忘记密码?</a>
+          <a href="javascript:void(0)" target="black">忘记密码?</a>
         </div>
       </el-form-item>
       <el-form-item>
@@ -73,13 +73,10 @@ export default {
     $route: {
       handler: function(route) {
         const query = route.query
-        console.log(query)
         if (query) {
           this.redirect = query.redirect
           this.otherQuery = this.getOtherQuery(query)
         }
-        console.log(this.redirect)
-        console.log(this.otherQuery)
       },
       immediate: true
     }

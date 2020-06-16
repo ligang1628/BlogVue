@@ -64,6 +64,12 @@ export const constantRoutes = [
             mate: { title: '' }
           },
           {
+            path: '/mood',
+            name: '随笔列表',
+            component: () => import('@/views/mood/index'),
+            meta: { title: '随笔列表' }
+          },
+          {
             path: 'cate/:id',
             name: '类别',
             component: () => import('@/views/article/cate'),
@@ -85,15 +91,9 @@ export const constantRoutes = [
         meta: { title: '心情随笔' },
         children: [
           {
-            path: 'index',
-            name: '随笔列表',
-            component: () => import('@/views/mood/index'),
-            meta: { title: '随笔列表' }
-          },
-          {
             path: 'post/:id(\\d+)',
             name: '查看随笔',
-            component: () => import('@/views/mood/detail'),
+            component: () => import('@/views/mood/post'),
             meta: { title: '查看随笔' }
           }
         ]
@@ -105,12 +105,6 @@ export const constantRoutes = [
         component: Index,
         meta: { title: '技术分析' },
         children: [
-          // {
-          //   path: 'index',
-          //   component: () => import('@/views/article/index'),
-          //   name: '文章列表',
-          //   mata: { title: '文章列表' }
-          // },
           {
             path: 'post/:id',
             component: () => import('@/views/article/post'),

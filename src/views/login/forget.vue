@@ -1,5 +1,5 @@
 <template>
-  <div>心情</div>
+  <div></div>
 </template>
 
 <script>

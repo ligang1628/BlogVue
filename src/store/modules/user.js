@@ -1,5 +1,5 @@
 // import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login } from '@/api/api'
+import { login, getInfo } from '@/api/api'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 // import { resetRouter } from '@/router'
 
@@ -46,25 +46,22 @@ const actions = {
   },
 
   // // get user info
-  // getInfo({ commit, state }) {
-  //   return new Promise((resolve, reject) => {
-  //     getInfo(state.token).then(response => {
-  //       const { data } = response
-
-  //       if (!data) {
-  //         reject('Verification failed, please Login again.')
-  //       }
-
-  //       const { name, avatar } = data
-
-  //       commit('SET_NAME', name)
-  //       commit('SET_AVATAR', avatar)
-  //       resolve(data)
-  //     }).catch(error => {
-  //       reject(error)
-  //     })
-  //   })
-  // },
+  getInfo({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getInfo({ token: state.token }).then(res => {
+        if (res.result === true) {
+          const { headImg, user } = res.data
+          commit('SET_NAME', user)
+          commit('SET_AVATAR', headImg)
+          resolve(res)
+        } else {
+          console.log(res.msg)
+        }
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
 
   // // user logout
   // logout({ commit, state }) {

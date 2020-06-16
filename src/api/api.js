@@ -10,6 +10,33 @@ export const login = params => {
   })
 }
 
+// 获取角色信息
+export const getInfo = params => {
+  return request({
+    url: '/api/account/getrole',
+    method: 'get',
+    params
+  })
+}
+
+// 注册
+export const SignUp = params => {
+  return request({
+    url: '/api/account/SignUp',
+    method: 'post',
+    data: params
+  })
+}
+
+// 发送邮件
+export const SendEmail = params => {
+  return request({
+    url: '/api/account/SendEmail',
+    method: 'get',
+    params
+  })
+}
+
 // 文章列表
 export const getArticleList = params => {
   return request({
@@ -91,11 +118,21 @@ export const rePlyComment = (data, params) => {
   })
 }
 
+// 回复留言
 export const replyMessage = (data, params) => {
   return request({
-    url: '/api/message/ReplyMessage' + data,
+    url: '/api/message/InsertMessage' + data,
     method: 'post',
     data: params
+  })
+}
+
+// 留言列表
+export const GetMessageList = params => {
+  return request({
+    url: '/api/message/GetMessageList',
+    method: 'get',
+    params
   })
 }
 
@@ -107,18 +144,20 @@ export const getAddress = params => {
   })
 }
 
-// export const GetQQToken = params => {
-//   return request({
-//     url: '/api/OAuth/GetQQToken',
-//     method: 'get',
-//     params
-//   })
-// }
+// 获取心情随笔列表
+export const getMoodList = params => {
+  return request({
+    url: '/api/mood/GetMoodList',
+    method: 'get',
+    params
+  })
+}
 
-// export const getState = params => {
-//   return request({
-//     url: '/api/OAuth/getloginstate',
-//     method: 'get',
-//     params
-//   })
-// }
+// 查看随笔
+export const getMood = params => {
+  return request({
+    url: '/api/mood/GetMood',
+    method: 'get',
+    params
+  })
+}

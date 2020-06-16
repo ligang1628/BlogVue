@@ -129,13 +129,17 @@ export default {
       id: '',
       times: null,
       Loading: true,
-      article: {},
+      article: '',
       Comment: {
         ArticleId: '',
         Content: '',
         ParentId: '',
         IP: '',
-        Address: ''
+        Address: '',
+        Level: 1,
+        PId_UserId: '',
+        Reply_Id: '',
+        Reply_UserId: ''
       },
       CommentList: [],
       prev: {},
@@ -149,22 +153,14 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.state.user)
     const token = this.$store.state.user.token
     if (token !== 'undefined' && token !== undefined) {
       this.tokenExists = true
     }
   },
-  beforeCreate() {
-
-  },
   mounted() {
     this.id = this.$route.params.id
     this.getInfo()
-  },
-  destroyed() {
-    // clearInterval(this.times)
-    // this.times = null
   },
   methods: {
     enter(idx) {
@@ -179,10 +175,6 @@ export default {
     async login() {
       this.$router.push({ name: 'login', query: { 'redirect': '/article/post/' + this.id }})
     },
-    // // 关闭弹窗
-    // handlerDialog(params) {
-    //   this.dialog = params
-    // },
     HandlerCancel() {
       this.Comment.ParentId = ''
       this.Comment.PId_UserId = ''
@@ -219,13 +211,17 @@ export default {
         return
       }
       await this.Address()
-      this.Comment.ArticleId = this.Id
+      this.Comment.ArticleId = this.id
       this.Comment.Content = this.Comment.Content.replace(/(^\s*)|(\s*$)/g, '')
+      if (this.Comment.Content.length === 0) {
+        this.$message.warning('请输入评论内容')
+        return
+      }
       const res = await rePlyComment('?name=' + this.name, this.Comment)
       if (res.result === true) {
         this.$message.success(res.msg)
         this.Comment.Content = ''
-        this.LoadArticle()
+        this.getInfo()
       } else {
         this.$message.warning(res.msg)
       }
@@ -253,7 +249,6 @@ export default {
     },
     async Address() {
       const { data } = await getAddress()
-      console.log(data)
       if (data.info === 'OK') {
         this.Comment.Address = data.province + data.city
       }

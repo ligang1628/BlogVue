@@ -55,7 +55,8 @@
                 </a>
                 <span class="username">{{ item.UserName }}</span>
                 <span v-if="item.UserName === article.UserName">[楼主]</span>：
-
+                <i class="el-icon-time" />
+                <span class="time">{{ time(item.CreateTime,item.CreateTime) }}</span>
                 <div class="feedbackManage show" :class="{ active : activeIndex === item.Id }">
                   <span class="comment_actions">
                     <a href="javascript:void(0)" @click="replyInfo(item)">回复</a>
@@ -69,18 +70,13 @@
               <div :id="'comment_body_'+item.UserId" class="comment_body">
                 <div class="blog_comment_body">
                   <label v-html="item.Content" />
-                  &nbsp;&nbsp;
-                  <span class="time">{{ time(item.CreateTime,item.CreateTime) }}</span>
                 </div>
                 <ul v-if="item.list" class="top">
                   <li v-for="itm in item.list" :key="itm.Id">
-
                     <div class="people" @mouseenter="enter(itm.Id)" @mouseleave="leave">
-
                       <div class="feedbackManage show" :class="{active: activeIndex === itm.Id}">
                         <span class="comment_actions">
                           <a href="javascript:void(0)" @click="replyInfo(itm)">回复</a>
-                          <!-- <a href="javascript:void(0)">举报</a> -->
                         </span>
                       </div>
                       <a href="javascript:void(0)" style="vertical-align:middle">
@@ -88,14 +84,14 @@
                       </a>
                       <span>{{ itm.UserName }}</span>
                       <span v-if="itm.UserName === article.UserName">[楼主]</span>
-                      <!-- <span>&nbsp;</span> -->
                       <span v-if="itm.Reply_UserId">@{{ itm.Reply_UserName }}</span>
                       <span v-else>@{{ itm.PId_UserName }}</span>
                       <span v-if="itm.UserName === article.UserName">[楼主]</span>：
+                      <i class="el-icon-time" />
+                      <span class="time">{{ time(itm.CreateTime,itm.CreateTime) }}</span>
                     </div>
                     <div class="blog_comment">
                       <label v-html="itm.Content" />
-                      <span class="time">{{ time(itm.CreateTime,itm.CreateTime) }}</span>
                     </div>
                   </li>
                 </ul>
@@ -104,19 +100,11 @@
           </li>
         </ul>
       </div>
-
-      <!-- <div class="loginQQ">
-        <login :url="QQ" :dialog="dialog" @closeDialog="handlerDialog" />
-      </div> -->
-    </div>
-    <div v-else>
-      请刷新重试
     </div>
   </div>
 </template>
 
 <script>
-// import Login from '@/components/Login/index'
 import { getArticleInfo, getAddress, rePlyComment } from '@/api/api'
 import { formatTime } from '@/utils/index'
 export default {

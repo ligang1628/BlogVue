@@ -13,7 +13,7 @@
       <p class="show"><i class="el-icon-position fly" :title="setModeTitle" :style="{'color' : setModeColor }" @click="setMode" /></p> -->
       <el-button type="primary" class="reply" @click="replyMessage">留言</el-button>
     </div>
-    <div v-if="CommentList" class="area">
+    <div v-if="CommentList.length > 0" class="area">
       <div v-for="(item,index) in CommentList" :key="item.Id" class="commentArea">
         <div class="history">
           <div class="top">
@@ -31,6 +31,19 @@
         </div>
       </div>
     </div>
+    <div v-else style="font-size:14px;">
+      静候您的留言...
+    </div>
+    <el-pagination
+      :current-page="1"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="pagination.limit"
+      :hide-on-single-page="true"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pagination.total"
+      @size-change="SizeChange"
+      @current-change="CurrentChange"
+    />
   </div>
 </template>
 
@@ -47,7 +60,12 @@ export default {
         Content: '',
         Address: ''
       },
-      CommentList: []
+      CommentList: [],
+      pagination: {
+        page: 1,
+        limit: 10,
+        total: 0
+      }
     }
   },
   computed: {
@@ -65,21 +83,31 @@ export default {
     }
   },
   created() {
-    this.GetMessageList()
+    this.getExamineMessage()
   },
   methods: {
-    setMode() {
-      if (this.mode === 'edit') {
-        this.mode = 'preview'
-      } else {
-        this.mode = 'edit'
-      }
+    // setMode() {
+    //   if (this.mode === 'edit') {
+    //     this.mode = 'preview'
+    //   } else {
+    //     this.mode = 'edit'
+    //   }
+    // },
+    SizeChange(obj) {
+      this.pagination.limit = obj
+      this.getExamineMessage()
     },
-    async GetMessageList() {
-      const res = await GetMessageList()
+    // page
+    CurrentChange(obj) {
+      this.pagination.page = obj
+      this.getExamineMessage()
+    },
+    async getExamineMessage() {
+      const res = await GetMessageList(this.pagination)
       if (res.result === true) {
         this.CommentList = res.data
         this.Comment.Content = ''
+        this.pagination.total = res.count
       } else {
         this.$message.warning(res.msg)
       }

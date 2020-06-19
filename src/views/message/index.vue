@@ -31,9 +31,9 @@
         </div>
       </div>
     </div>
-    <div v-else style="font-size:14px;">
+    <!-- <div v-else style="font-size:14px;">
       静候您的留言...
-    </div>
+    </div> -->
     <el-pagination
       :current-page="1"
       :page-sizes="[10, 20, 30, 40]"
@@ -258,7 +258,5 @@ export default {
 .blog_comment_body {
   padding:5px 10px;
   font-size: 14px;
-  /* margin:10px 0; */
-  /* border: 1px dashed #dedede ; */
 }
 </style>

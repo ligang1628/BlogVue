@@ -8,9 +8,25 @@
   margin-bottom: 10px;
 }
 
-.article-header .title {
-  border-bottom: 2px solid #000000;
+/* .article-header .title {
+  border-bottom: 1px solid #000000;
   display: inline-block;
+} */
+
+.article-header .title:hover::after{
+  width: 80px;
+}
+
+.article-header .title::after {
+  position: absolute;
+  width: 60px;
+  height:2px;
+  content: '';
+  background: #000;
+  left: 0;
+  bottom: 0;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
 }
 
 .article-list ul {
@@ -97,4 +113,26 @@ a.viewmore{
 }
 [v-cloak] {
   display: none !important;
+}
+
+.home .newhome {
+  width:1200px;
+  padding: 20px;
+  overflow: hidden;
+  margin: 0 auto;
+  min-height: 800px;
+}
+
+.home .lbox {
+  width:75%;
+  padding:0 20px;
+  float: left;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.home .rbox {
+  float:right;
+  width: 22.5%;
+  overflow: hidden;
 }

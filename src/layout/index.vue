@@ -28,11 +28,6 @@
                     心情随笔
                   </router-link>
                 </el-menu-item>
-                <!-- <el-menu-item index="/article">
-                  <router-link to="/article">
-                    技术分析
-                  </router-link>
-                </el-menu-item> -->
                 <el-menu-item index="/message">
                   <router-link to="/message">
                     BLOG留言
@@ -68,11 +63,6 @@
                   心情随笔
                 </el-menu-item>
               </router-link>
-              <!-- <router-link to="/article">
-                <el-menu-item index="/article">
-                  技术分析
-                </el-menu-item>
-              </router-link> -->
               <router-link to="/message">
                 <el-menu-item index="/message">
                   BLOG留言
@@ -102,26 +92,16 @@
       <el-tooltip placement="top" content="返回顶部">
         <back-to-top :custom-style="BackTo" :visibility-height="300" :back-position="50" transition-name="fade" />
       </el-tooltip>
-      <!-- <div :class="classObj" class="app-wrapper">
-        <div class="main-container">
-          <right-panel>
-            <settings />
-          </right-panel>
-        </div>
-      </div> -->
     </el-container>
   </div>
 </template>
 
 <script>
 import BackToTop from '@/components/BackToTop'
-// import RightPanel from '@/components/RightPanel'
-// import Settings from '@/components/Settings'
 import { mapState } from 'vuex'
 export default {
   name: 'Layout',
   components: { BackToTop },
-  // components: { BackToTop, RightPanel, Settings },
   data() {
     return {
       activeIndex: '1',

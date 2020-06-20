@@ -161,3 +161,12 @@ export const getMood = params => {
     params
   })
 }
+
+// 关于我
+export const about = params => {
+  return request({
+    url: '/api/system/about',
+    method: 'get',
+    params
+  })
+}

@@ -104,6 +104,6 @@ div:focus {
 }
 
 // 去除编辑器工具栏
-// .message .v-md-editor__toolbar{
-//   display:none !important;
-// }
+.v-md-editor-preview blockquote {
+  border-left: 0.2rem solid #1E9FFF !important;
+}

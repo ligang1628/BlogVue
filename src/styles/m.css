@@ -34,3 +34,6 @@ a.viewmore { position: static; margin-top: 20px; text-align: center }
 .nav-mobile { display:inline-block !important; }
 .copyBeian { width:100% !important;padding:15px 0 !important; }
 }
+.container {
+  background: url('../assets/images/loginbg.jpg') repeat-y center center;
+}

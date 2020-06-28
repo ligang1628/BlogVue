@@ -77,7 +77,7 @@ export default {
   },
   data() {
     return {
-      Loading: false,
+      Loading: true,
       moodList: [],
       pageParams: {
         page: 1,
@@ -101,6 +101,7 @@ export default {
       } else {
         this.$message.warning(res.msg)
       }
+      this.Loading = false
     }
   }
 }

@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       id: '',
-      Loading: false,
+      Loading: true,
       text: '',
       mode: 'edit',
       Comment: {
@@ -111,6 +111,7 @@ export default {
       } else {
         this.$message.warning(res.msg)
       }
+      this.Loading = false
     },
     async replyMessage() {
       if (!this.token) {

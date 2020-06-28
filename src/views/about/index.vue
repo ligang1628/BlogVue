@@ -1,4 +1,4 @@
-<template v-loading="Loading" element-loading-background="rgba(247, 245, 245, 0.7)" element-loading-text="使劲加载中...">
+<template v-loading="loading" element-loading-background="rgba(247, 245, 245, 0.7)" element-loading-text="使劲加载中...">
   <div class="about">
     <div class="logo">
       <img src="../../assets/images/logo.jpg">
@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       id: '',
-      Loading: false,
+      loading: true,
       text: ''
     }
   },
@@ -29,6 +29,7 @@ export default {
       } else {
         this.$message.warning(res.msg)
       }
+      this.loading = false
     }
   }
 }

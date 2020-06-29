@@ -130,43 +130,18 @@ export default {
       this.Loading = false
     },
     async getInfo() {
-      const p1 = await new Promise((resolve, reject) => {
-        getHotArticle().then(res => {
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
-      })
+      const p1 = await getHotArticle()
 
-      const p2 = await new Promise((resolve, reject) => {
-        getRecentUpdate().then(res => {
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
-      })
+      const p2 = await getRecentUpdate()
 
-      const p3 = await new Promise((resolve, reject) => {
-        getCategoryNum().then(res => {
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
-      })
+      const p3 = await getCategoryNum()
 
-      const p4 = await new Promise((resolve, reject) => {
-        getArticleFiling().then(res => {
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
-      })
+      const p4 = await getArticleFiling()
 
-      const res = await Promise.all([p1, p2, p3, p4])
-      this.hostArticle = res[0].data
-      this.recentArticle = res[1].data
-      this.catelogue = res[2].data
-      this.articleFiling = res[3].data
+      this.hostArticle = p1.data
+      this.recentArticle = p2.data
+      this.catelogue = p3.data
+      this.articleFiling = p4.data
       this.Loading = false
     }
   }

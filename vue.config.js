@@ -30,11 +30,31 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    // host: 'www.xyz123.info',
+    // host: 'www.ligang.info',
     port: port,
     open: true,
     overlay: {
       warnings: false,
       errors: true
+    },
+    proxy: {
+      '/api': {
+        // target: 'http://localhost:5000',
+        // target: 'https://www.ligang.info',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          // 路径重写
+          '^/apb': '' // 替换target中的请求地址
+        }
+      },
+      '/images': {
+        // target: 'http://localhost:5000',
+        // target: 'https://www.ligang.info',
+        ws: true,
+        changeOrigin: true
+      }
     }
   },
   configureWebpack: {

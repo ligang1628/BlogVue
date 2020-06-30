@@ -37,25 +37,25 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
-    proxy: {
-      '/api': {
-        // target: 'http://localhost:5000',
-        // target: 'https://www.ligang.info',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          // 路径重写
-          '^/apb': '' // 替换target中的请求地址
-        }
-      },
-      '/images': {
-        // target: 'http://localhost:5000',
-        // target: 'https://www.ligang.info',
-        ws: true,
-        changeOrigin: true
-      }
-    }
+    }// ,
+    // proxy: {
+    //   '/api': {
+    //     // target: 'http://localhost:5000',
+    //     // target: 'https://www.ligang.info',
+    //     ws: true,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       // 路径重写
+    //       '^/apb': '' // 替换target中的请求地址
+    //     }
+    //   },
+    //   '/images': {
+    //     // target: 'http://localhost:5000',
+    //     // target: 'https://www.ligang.info',
+    //     ws: true,
+    //     changeOrigin: true
+    //   }
+    // }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

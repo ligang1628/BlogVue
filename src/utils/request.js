@@ -6,9 +6,9 @@ import { resetRouter } from '@/router'
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: 'https://www.ligang.info'
-  baseURL: 'http://127.0.0.1'
-  // baseURL: 'http://localhost:5000'
+  // baseURL: 'http://www.ligang.info'
+  // baseURL: 'http://127.0.0.1'
+  baseURL: 'http://localhost:5000'
   // withCredentials: true, // send cookies when cross-domain requests
   // timeout: 5000 // request timeout
 })
@@ -92,6 +92,12 @@ service.interceptors.response.use(
     } else if (error.response.status === 429) {
       Message({
         message: '请停下您的步伐，看看外面的世界'
+      })
+    } else if (error.response.status === 502) {
+      Message({
+        message: '请求接口暂未开放！请联系管理员！！！',
+        type: 'error',
+        duration: 5 * 1000
       })
     } else {
       Message({

@@ -4,7 +4,7 @@
       <img src="../../assets/images/logo.jpg">
     </div>
     <p style="text-align:center">一个关注CSharp技术的个人网站，提供一个互联网从业者的学习成果和工作经验总结</p>
-    <v-md-editor v-model.lazy="text" mode="preview" />
+    <v-md-editor v-model.lazy="text" mode="preview" @copy-code-success="CopyCode" />
   </div>
 </template>
 
@@ -21,11 +21,19 @@ export default {
   created() {
     this.about()
   },
+  mounted() {
+
+  },
   methods: {
+    CopyCode(code) {
+      debugger
+      console.log('copy success')
+      console.log(code)
+    },
     async about() {
       const res = await about()
       if (res.result === true) {
-        this.text = res.data.Introduce
+        this.text = res.data
       } else {
         this.$message.warning(res.msg)
       }

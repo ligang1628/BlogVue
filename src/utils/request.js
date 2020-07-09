@@ -29,7 +29,7 @@ service.interceptors.request.use(
   error => {
     if (error.response.status === 401) {
       Message({
-        message: '权限不足，请联系管理员',
+        message: '权限不足',
         type: 'error',
         duration: 5 * 1000
       })
@@ -66,18 +66,20 @@ service.interceptors.response.use(
     if (response.status !== 200) {
       if (response.status === 401) {
         Message({
-          message: res.msg || 'Error',
+          message: '权限不足',
           type: 'error',
           duration: 5 * 1000
         })
         removeToken()
         resetRouter()
       }
-      return Promise.reject(new Error(res.msg || 'Error'))
-    } else {
-      // console.log(res)
-      return res
+      // return Promise.reject(new Error(res.msg || 'Error'))
     }
+    // else {
+    //   // console.log(res)
+    //   return res
+    // }
+    return res
   },
   error => {
     if (error.response.status === 401) {
@@ -93,20 +95,23 @@ service.interceptors.response.use(
       Message({
         message: '请停下您的步伐，看看外面的世界'
       })
-    } else if (error.response.status === 502) {
-      Message({
-        message: '请求接口暂未开放！请联系管理员！！！',
-        type: 'error',
-        duration: 5 * 1000
-      })
-    } else {
-      Message({
-        message: error.message,
-        type: 'error',
-        duration: 5 * 1000
-      })
     }
-    return Promise.reject(error)
+    // else if (error.response.status === 502) {
+    //   Message({
+    //     message: '请求接口暂未开放！请联系管理员！！！',
+    //     type: 'error',
+    //     duration: 5 * 1000
+    //   })
+    // } else {
+    //   // Message({
+    //   //   message: error.message,
+    //   //   type: 'error',
+    //   //   duration: 5 * 1000
+    //   // })
+    // }
+    // return Promise.reject(error)
+    window.location.href = '/'
+    return error
   }
 )
 

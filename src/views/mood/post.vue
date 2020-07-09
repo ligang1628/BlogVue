@@ -47,9 +47,14 @@ export default {
           this.$message.warning(res.msg)
         } else {
           const { info, data } = res.data
-          this.mood = info
-          this.prev = data.prev
-          this.next = data.next
+          if (info === null) {
+            this.$message.warning('该随笔不存在')
+            this.$router.push({ path: '/mood' })
+          } else {
+            this.mood = info
+            this.prev = data.prev
+            this.next = data.next
+          }
         }
       } else {
         if (res.data === null) {

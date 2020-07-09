@@ -24,11 +24,19 @@ import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
 import createEmojiPlugin from '@kangc/v-md-editor/lib/plugins/emoji/index'
 import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn'
 import createTodoListPlugin from '@kangc/v-md-editor/lib/plugins/todo-list/index'
+import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index'
+
+import 'prismjs/components/prism-json'
+import 'prismjs/components/prism-csharp'
+import 'prismjs/components/prism-sql'
+import 'prismjs/components/prism-nginx'
+import 'prismjs/components/prism-docker'
 
 VueMarkdownEditor.use(vuepressTheme)
 VueMarkdownEditor.use(createEmojiPlugin())
 VueMarkdownEditor.use(createKatexPlugin())
 VueMarkdownEditor.use(createTodoListPlugin())
+VueMarkdownEditor.use(createCopyCodePlugin())
 
 Vue.use(VueMarkdownEditor)
 console.log(VueMarkdownEditor.version)

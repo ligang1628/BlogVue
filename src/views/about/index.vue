@@ -21,14 +21,9 @@ export default {
   created() {
     this.about()
   },
-  mounted() {
-
-  },
   methods: {
     CopyCode(code) {
-      debugger
-      console.log('copy success')
-      console.log(code)
+      this.$message.success('copy success')
     },
     async about() {
       const res = await about()
@@ -48,7 +43,6 @@ export default {
   width:1200px;
   padding: 20px;
   min-height: 800px;
-  /* padding: 10px; */
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 5px;

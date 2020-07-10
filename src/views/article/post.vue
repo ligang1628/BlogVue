@@ -8,7 +8,7 @@
         <el-tag size="mini">{{ article.CName }}</el-tag>
       </div>
       <div class="content">
-        <v-md-editor v-model.lazy="article.Content" mode="preview" />
+        <v-md-editor v-model.lazy="article.Content" mode="preview" @copy-code-success="CopyCode" />
       </div>
 
       <div class="nextRead">
@@ -60,7 +60,6 @@
                 <div class="feedbackManage show" :class="{ active : activeIndex === item.Id }">
                   <span class="comment_actions">
                     <a href="javascript:void(0)" @click="replyInfo(item)">回复</a>
-                    <!-- <a href="javascript:void(0)">举报</a> -->
                   </span>
                 </div>
 
@@ -151,6 +150,9 @@ export default {
     this.getInfo()
   },
   methods: {
+    CopyCode(code) {
+      this.$message.success('copy success')
+    },
     enter(idx) {
       this.activeIndex = idx
     },

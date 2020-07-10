@@ -6,9 +6,9 @@ import { resetRouter } from '@/router'
 
 // create an axios instance
 const service = axios.create({
-  // baseURL: 'http://www.ligang.info'
+  baseURL: 'http://www.ligang.info'
   // baseURL: 'http://127.0.0.1'
-  baseURL: 'http://localhost:5000'
+  // baseURL: 'http://localhost:5000'
   // withCredentials: true, // send cookies when cross-domain requests
   // timeout: 5000 // request timeout
 })

@@ -8,7 +8,7 @@
         <el-tag size="mini">{{ mood.Category }}</el-tag>
       </div>
       <div class="content">
-        <v-md-editor v-model.lazy="mood.Content" mode="preview" />
+        <v-md-editor v-model.lazy="mood.Content" mode="preview" @copy-code-success="CopyCode" />
       </div>
 
       <div class="nextRead">
@@ -39,6 +39,9 @@ export default {
     this.getInfo()
   },
   methods: {
+    CopyCode(code) {
+      this.$message.success('copy success')
+    },
     async getInfo() {
       const res = await getMood({ id: this.id })
       if (res.result === true) {
